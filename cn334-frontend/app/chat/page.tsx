@@ -27,6 +27,10 @@ export default function ChatPage() {
 
     try {
       const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+      
+      if (!apiKey) {
+        throw new Error("Missing GEMINI_API_KEY in environment variables");
+      }
 
       const response = await fetch(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
@@ -50,7 +54,7 @@ export default function ChatPage() {
               },
             ],
           }),
-        }
+        },
       );
 
       const data = await response.json();

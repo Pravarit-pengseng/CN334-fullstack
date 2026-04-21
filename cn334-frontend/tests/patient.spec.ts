@@ -2,27 +2,30 @@ import { test, expect } from "@playwright/test";
 test("ทดสอบระบบค้นหาคนไข้บนตาราง (ด้วย API Mocking)", async ({ page }) => {
   // 1. ดักจับและปลอมแปลงข้อมูล API (Mocking)
   // ทันทีที่หน้าเว็บพยายามจะวิ่งไปหา localhost:3340/patients Playwright จะดักไว้และส่งข้อมูลปลอมนี้กลับไปแทน
-  await page.route("http://localhost:3340/patients", async (route) => {
-    const mockData = [
-      {
-        id: 1,
-        hn_number: "HN999",
-        patient_name: "Robot Tester",
-        exam_date: "2026-03-31",
-        diagnosis: "Testing",
-      },
-      {
-        id: 2,
-        hn_number: "HN111",
-        patient_name: "John Doe",
-        exam_date: "2026-04-01",
-        diagnosis: "Fever",
-      },
-    ];
-    await route.fulfill({ json: mockData });
-  });
+  await page.route(
+    `${process.env.NEXT_PUBLIC_API_URL}/patients`,
+    async (route) => {
+      const mockData = [
+        {
+          id: 1,
+          hn_number: "HN999",
+          patient_name: "Robot Tester",
+          exam_date: "2026-03-31",
+          diagnosis: "Testing",
+        },
+        {
+          id: 2,
+          hn_number: "HN111",
+          patient_name: "John Doe",
+          exam_date: "2026-04-01",
+          diagnosis: "Fever",
+        },
+      ];
+      await route.fulfill({ json: mockData });
+    },
+  );
   // 2. ไปที่หน้าจัดการคนไข้
-  await page.goto("http://localhost:3000/admin/patients");
+  await page.goto(`${process.env.NEXT_PUBLIC_API_URL}/admin/patients`);
   // 3. ตรวจสอบว่าตารางโหลดข้อมูลปลอมของเรามาแสดงผลเรียบร้อยแล้ว
   // expect จะรอจนกว่าคําว่า Robot Tester จะปรากฏ (หมดปัญหาเรื่องโหลดข้อมูลไม่ทัน)
   await expect(page.locator("table")).toContainText("Robot Tester");
