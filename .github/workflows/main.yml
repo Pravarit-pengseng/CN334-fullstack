@@ -13,7 +13,7 @@ jobs:
     # กำหนดให้ทุก step ทำงานในโฟลเดอร์ของโปรเจกต์ (Monorepo setup)
     defaults:
       run:
-        working-directory: ./apps/your-app-name # <-- *** เปลี่ยนตรงนี้ให้เป็น path ของคุณ ***
+        working-directory: ./cn334-frontend # <-- *** เปลี่ยนตรงนี้ให้เป็น path ของคุณ ***
 
     steps:
     - uses: actions/checkout@v4
