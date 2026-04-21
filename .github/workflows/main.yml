@@ -23,7 +23,7 @@ jobs:
         cache-dependency-path: './cn334-frontend/package-lock.json'
 
     - name: Install dependencies
-      run: npm ci
+      run: npm install
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
