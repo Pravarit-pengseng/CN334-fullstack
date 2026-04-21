@@ -31,7 +31,7 @@ jobs:
     - name: Run Playwright tests
       env:
          # ปรับเป็น 3340 ตามที่คุณใช้งานจริง
-         NEXT_PUBLIC_API_URL: http://localhost:3340 
+         NEXT_PUBLIC_API_URL: http://localhost:3000
       run: npx playwright test
 
     - uses: actions/upload-artifact@v4
