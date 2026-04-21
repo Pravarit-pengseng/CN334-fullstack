@@ -13,7 +13,7 @@ models.Base.metadata.create_all(bind=engine)
 # ตั้งค่าให้อนุญาตการเชื่อมต่อจาก Next.js
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000","https://cn334-frontend-beryl.vercel.app/"],
+    allow_origins=["http://localhost:3000","https://cn334-frontend-beryl.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
